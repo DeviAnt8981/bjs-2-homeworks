@@ -16,7 +16,20 @@ function solveEquation(a, b, c) {
   return arr;
 }
 
+let diskriminant = solveEquation(2, 9, 2);
+console.log(diskriminant);
+
 function calculateTotalMortgage(percent, contribution, amount, countMonths) {
-  let monthPercent = percent / 100;
-  let bodyCredit = (amount - contribution) / countMonths;
+  if (typeof percent !== 'number' || typeof contribution !== 'number' || typeof amount !== 'number' || typeof countMonths !== 'number') {
+    return "Ошибка ввода. Все значения должны быть числами.";
+  }
+  percent = percent / 100; 
+  let bodyCredit = amount - contribution;
+  let monthlyInterestRate = percent / 12;
+  let monthlyPayment = bodyCredit * (monthlyInterestRate + monthlyInterestRate / (Math.pow(1 + monthlyInterestRate, countMonths) - 1));
+  let totalPayment = monthlyPayment * countMonths;
+  return Math.round(totalPayment * 100) / 100;
 }
+
+let res = calculateTotalMortgage(10, 1000, 50000, 12);
+console.log(res);
